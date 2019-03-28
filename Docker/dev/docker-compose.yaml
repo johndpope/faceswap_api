@@ -1,0 +1,52 @@
+version: '3.4'
+
+services:
+  db:
+    image: postgres:10.5-alpine
+    env_file:
+      - .env.secret
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+  rabbitmq:
+    image: rabbitmq:3.7.12
+    env_file:
+      - .env.secret
+  django:
+    build:
+      context: ../../
+      dockerfile: ./Docker/dev/python/Dockerfile
+      target: django
+    command: >
+      python /usr/src/app/manage.py runserver 0.0.0.0:8000
+      --settings=project.settings.dev
+    volumes:
+      - ../../:/usr/src/app/
+    ports:
+      - 8000:8000
+    env_file:
+      - .env
+      - .env.secret
+    stdin_open: true
+    tty: true
+    depends_on:
+      - db
+      - rabbitmq
+  celery:
+    build:
+      context: ../../
+      dockerfile: ./Docker/dev/python/Dockerfile
+      target: celery
+    command: celery -A project worker -l info
+    volumes:
+      - ../../:/usr/src/app/
+    env_file:
+      - .env
+      - .env.secret
+    stdin_open: true
+    tty: true
+    depends_on:
+      - db
+      - rabbitmq
+
+volumes:
+  postgres_data:

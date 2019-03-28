@@ -1,0 +1,35 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pep8 = "*"
+autopep8 = "*"
+ipython = "*"
+ipdb = "*"
+pytest = "*"
+pytest-django = "*"
+pytest-cov = "*"
+django-debug-toolbar = "*"
+flake8 = "*"
+django-cors-headers = "*"
+
+[packages]
+django = "*"
+gunicorn = "*"
+gevent = "*"
+djangorestframework = "*"
+markdown = "*"
+django-filter = "*"
+dlib = "*"
+opencv-python = "*"
+numpy = "*"
+pillow = "*"
+django-rest-auth = {extras = ["with_social"],version = "*"}
+celery = "*"
+psycopg2-binary = "*"
+raven = "*"
+
+[requires]
+python_version = "3.6"

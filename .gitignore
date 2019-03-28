@@ -1,0 +1,11 @@
+*.pyc
+media/*
+static/*
+project/settings/secrets.py
+.cache
+.pytest_cache
+db.sqlite3
+htmlcov/*
+.coverage
+.vscode
+.env.secret
